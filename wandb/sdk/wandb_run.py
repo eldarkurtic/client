@@ -65,12 +65,6 @@ if wandb.TYPE_CHECKING:  # type: ignore
         Type,
         Callable,
     )
-
-    try:
-        from typing import NoReturn
-    except ImportError:
-        NoReturn = None  # type: ignore
-
     from types import TracebackType
     from .wandb_settings import Settings, SettingsConsole
     from .interface.summary_record import SummaryRecord
@@ -102,7 +96,7 @@ class ExitHooks(object):
         sys.exit = self.exit
         sys.excepthook = self.exc_handler
 
-    def exit(self, code: object = 0) -> NoReturn:
+    def exit(self, code: object = 0) -> "NoReturn":
         orig_code = code
         if code is None:
             code = 0
